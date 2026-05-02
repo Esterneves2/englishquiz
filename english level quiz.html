@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's your English level? · Teacher Ester Neves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2744;
+    --wine: #8b1a2e;
+    --navy-light: #e8ecf4;
+    --wine-light: #f5e8eb;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --border: #d8d8d8;
+    --bg: #faf9f7;
+    --white: #ffffff;
+    --green: #3B6D11;
+    --green-bg: #EAF3DE;
+    --red: #A32D2D;
+    --red-bg: #FCEBEB;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Raleway', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    width: 100%;
+    max-width: 560px;
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(26,39,68,0.08);
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .header-deco {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .header-deco-line {
+    width: 32px;
+    height: 1px;
+    background: var(--wine);
+  }
+
+  .teacher-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--wine);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .name-accent { color: var(--wine); }
+
+  .flag-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  .flag-line { width: 24px; height: 1px; background: rgba(255,255,255,0.25); }
+
+  .flag-icon {
+    width: 22px;
+    height: 14px;
+    display: inline-block;
+  }
+
+  .header-subtitle {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-top: 12px;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    background: var(--navy-light);
+    height: 3px;
+    width: 100%;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--wine);
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+    width: 0%;
+  }
+
+  /* BODY */
+  .body { padding: 2rem 2rem 1.5rem; }
+
+  /* STEPS */
+  .step { display: none; animation: fadeIn 0.3s ease; }
+  .step.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .q-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--wine);
+    font-weight: 600;
+  }
+
+  .q-counter {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  .q-level {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  .q-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+
+  .q-blank {
+    display: inline-block;
+    width: 70px;
+    height: 1.5px;
+    background: var(--navy);
+    vertical-align: middle;
+    margin: 0 3px;
+    position: relative;
+    top: -3px;
+  }
+
+  .options { display: grid; gap: 10px; }
+  .options.two-col { grid-template-columns: 1fr 1fr; }
+
+  .opt-btn {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s ease;
+    line-height: 1.4;
+  }
+
+  .opt-btn:hover { border-color: var(--navy); background: var(--navy-light); }
+  .opt-btn.selected { border-color: var(--navy); background: var(--navy); color: #fff; }
+  .opt-btn.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); font-weight: 500; }
+  .opt-btn.wrong { border-color: var(--red); background: var(--red-bg); color: var(--red); }
+
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 1.75rem;
+  }
+
+  .btn-primary {
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 11px 26px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-primary:disabled { opacity: 0.3; cursor: default; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 11px 18px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .btn-outline:hover { background: var(--navy-light); }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.75rem 0;
+  }
+
+  /* RESULT */
+  .result-hero {
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px solid var(--navy);
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+  }
+
+  .result-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .result-score span {
+    font-size: 22px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .result-badge {
+    display: inline-block;
+    border: 1px solid var(--wine);
+    color: var(--wine);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin: 12px 0 10px;
+    font-weight: 600;
+  }
+
+  .result-desc {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  /* CONTACT */
+  .contact-heading {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-form { display: grid; gap: 10px; }
+
+  .field-input {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 13px 16px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .field-input:focus { border-color: var(--navy); }
+  .field-input::placeholder { color: #aaa; }
+
+  .or-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .or-line::before, .or-line::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .btn-send {
+    background: var(--wine);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 14px;
+    width: 100%;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    margin-top: 4px;
+  }
+
+  .btn-send:hover { opacity: 0.88; }
+  .btn-send:active { transform: scale(0.98); }
+
+  .success-box {
+    display: none;
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--green-bg);
+    border: 1px solid var(--green);
+    border-radius: 4px;
+  }
+
+  .success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+
+  .success-text {
+    font-size: 13px;
+    color: #3B6D11;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 1rem 2rem 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer p {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    font-weight: 300;
+  }
+
+  .footer strong { color: var(--navy); font-weight: 500; }
+
+  /* RESPONSIVE */
+  @media (max-width: 480px) {
+    body { padding: 0 0 3rem; }
+    .card { border-radius: 0; border-left: none; border-right: none; box-shadow: none; }
+    .name { font-size: 26px; }
+    .options.two-col { grid-template-columns: 1fr; }
+    .body { padding: 1.5rem 1.25rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-deco">
+      <div class="header-deco-line"></div>
+      <span class="teacher-label">Teacher</span>
+      <div class="header-deco-line"></div>
+    </div>
+    <h1 class="name">Ester <span class="name-accent">Neves</span></h1>
+    <div class="flag-row">
+      <div class="flag-line"></div>
+      <svg class="flag-icon" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg">
+        <rect width="60" height="36" fill="#012169"/>
+        <path d="M0,0 L60,36 M60,0 L0,36" stroke="#fff" stroke-width="6"/>
+        <path d="M0,0 L60,36 M60,0 L0,36" stroke="#C8102E" stroke-width="4"/>
+        <path d="M30,0 V36 M0,18 H60" stroke="#fff" stroke-width="10"/>
+        <path d="M30,0 V36 M0,18 H60" stroke="#C8102E" stroke-width="6"/>
+      </svg>
+      <div class="flag-line"></div>
+    </div>
+    <p class="header-subtitle">What's your English level?</p>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-wrap">
+    <div class="progress-fill" id="progress"></div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- Q1 -->
+    <div class="step active" id="step-0">
+      <div class="q-meta">
+        <span class="q-label">Question 1</span>
+        <span class="q-counter">1 of 6</span>
+      </div>
+      <p class="q-level">A0 · complete beginner</p>
+      <p class="q-text">What does "Hello" mean in Portuguese?</p>
+      <div class="options two-col">
+        <button class="opt-btn" onclick="select(0,0,'wrong')">A) Tchau</button>
+        <button class="opt-btn" onclick="select(0,1,'correct')">B) Olá</button>
+        <button class="opt-btn" onclick="select(0,2,'wrong')">C) Obrigado</button>
+        <button class="opt-btn" onclick="select(0,3,'wrong')">D) Desculpe</button>
+      </div>
+      <div class="nav-row">
+        <button class="btn-primary" id="next-0" onclick="goTo(1)" disabled>Next →</button>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="step" id="step-1">
+      <div class="q-meta">
+        <span class="q-label">Question 2</span>
+        <span class="q-counter">2 of 6</span>
+      </div>
+      <p class="q-level">A1 · beginner</p>
+      <p class="q-text">Choose the correct sentence:</p>
+      <div class="options">
+        <button class="opt-btn" onclick="select(1,0,'wrong')">A) She have a dog.</button>
+        <button class="opt-btn" onclick="select(1,1,'correct')">B) She has a dog.</button>
+        <button class="opt-btn" onclick="select(1,2,'wrong')">C) She is have a dog.</button>
+        <button class="opt-btn" onclick="select(1,3,'wrong')">D) She having a dog.</button>
+      </div>
+      <div class="nav-row">
+        <button class="btn-outline" onclick="goTo(0)">← Back</button>
+        <button class="btn-primary" id="next-1" onclick="goTo(2)" disabled>Next →</button>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="step" id="step-2">
+      <div class="q-meta">
+        <span class="q-label">Question 3</span>
+        <span class="q-counter">3 of 6</span>
+      </div>
+      <p class="q-level">A2 · elementary</p>
+      <p class="q-text">"I went to the market yesterday" — this sentence talks about the past. True or false?</p>
+      <div class="options two-col">
+        <button class="opt-btn" onclick="select(2,0,'correct')">True</button>
+        <button class="opt-btn" onclick="select(2,1,'wrong')">False</button>
+      </div>
+      <div class="nav-row">
+        <button class="btn-outline" onclick="goTo(1)">← Back</button>
+        <button class="btn-primary" id="next-2" onclick="goTo(3)" disabled>Next →</button>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="step" id="step-3">
+      <div class="q-meta">
+        <span class="q-label">Question 4</span>
+        <span class="q-counter">4 of 6</span>
+      </div>
+      <p class="q-level">B1 · intermediate</p>
+      <p class="q-text">Fill in the blank: "If I <span class="q-blank"></span> more time, I would travel the world."</p>
+      <div class="options two-col">
+        <button class="opt-btn" onclick="select(3,0,'wrong')">A) have</button>
+        <button class="opt-btn" onclick="select(3,1,'wrong')">B) will have</button>
+        <button class="opt-btn" onclick="select(3,2,'correct')">C) had</button>
+        <button class="opt-btn" onclick="select(3,3,'wrong')">D) would have</button>
+      </div>
+      <div class="nav-row">
+        <button class="btn-outline" onclick="goTo(2)">← Back</button>
+        <button class="btn-primary" id="next-3" onclick="goTo(4)" disabled>Next →</button>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="step" id="step-4">
+      <div class="q-meta">
+        <span class="q-label">Question 5</span>
+        <span class="q-counter">5 of 6</span>
+      </div>
+      <p class="q-level">B2 · upper intermediate</p>
+      <p class="q-text">Which sentence sounds more natural in spoken English?</p>
+      <div class="options">
+        <button class="opt-btn" onclick="select(4,0,'wrong')">A) I did not go there.</button>
+        <button class="opt-btn" onclick="select(4,1,'correct')">B) I haven't been there.</button>
+        <button class="opt-btn" onclick="select(4,2,'wrong')">C) I was not going there.</button>
+        <button class="opt-btn" onclick="select(4,3,'wrong')">D) I am not going there.</button>
+      </div>
+      <div class="nav-row">
+        <button class="btn-outline" onclick="goTo(3)">← Back</button>
+        <button class="btn-primary" id="next-4" onclick="goTo(5)" disabled>Next →</button>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="step" id="step-5">
+      <div class="q-meta">
+        <span class="q-label">Question 6</span>
+        <span class="q-counter">6 of 6</span>
+      </div>
+      <p class="q-level">C1 · advanced</p>
+      <p class="q-text">What does "She's been on edge all day" mean?</p>
+      <div class="options two-col">
+        <button class="opt-btn" onclick="select(5,0,'wrong')">A) She's been tired.</button>
+        <button class="opt-btn" onclick="select(5,1,'correct')">B) She's been nervous.</button>
+        <button class="opt-btn" onclick="select(5,2,'wrong')">C) Working hard.</button>
+        <button class="opt-btn" onclick="select(5,3,'wrong')">D) She's been happy.</button>
+      </div>
+      <div class="nav-row">
+        <button class="btn-outline" onclick="goTo(4)">← Back</button>
+        <button class="btn-primary" id="next-5" onclick="showResult()" disabled>See my result →</button>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="step" id="step-result">
+      <div class="result-hero">
+        <div class="result-score" id="score-display">0 <span>/ 6</span></div>
+        <div class="result-badge" id="level-badge">A0</div>
+        <p class="result-desc" id="level-desc">Just getting started.</p>
+      </div>
+
+      <hr class="divider">
+
+      <p class="contact-heading">Receive your detailed result + personalised tips</p>
+
+      <div class="contact-form" id="contact-form">
+        <input type="email" class="field-input" id="field-email" placeholder="Your e-mail address" />
+        <div class="or-line">or</div>
+        <input type="tel" class="field-input" id="field-phone" placeholder="Your WhatsApp number" />
+        <button class="btn-send" onclick="submitContact()">Send my result</button>
+      </div>
+
+      <div class="success-box" id="success-box">
+        <p class="success-title">Done!</p>
+        <p class="success-text">Teacher Ester will be in touch soon with your personalised result and next steps.</p>
+      </div>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p><strong>Teacher Ester Neves</strong> · English for real life</p>
+  </div>
+
+</div><!-- /card -->
+
+<script>
+  var score = 0;
+  var answered = [false,false,false,false,false,false];
+  var correct   = [false,false,false,false,false,false];
+
+  function select(q, idx, verdict) {
+    var step = document.getElementById('step-' + q);
+    var btns = step.querySelectorAll('.opt-btn');
+    btns.forEach(function(b){ b.className = 'opt-btn'; });
+    btns[idx].classList.add(verdict === 'correct' ? 'correct' : 'wrong');
+    correct[q] = (verdict === 'correct');
+    answered[q] = true;
+    document.getElementById('next-' + q).disabled = false;
+    updateProgress();
+  }
+
+  function updateProgress() {
+    var done = answered.filter(Boolean).length;
+    document.getElementById('progress').style.width = Math.round((done / 6) * 100) + '%';
+  }
+
+  function goTo(idx) {
+    document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById('step-' + idx).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showResult() {
+    score = correct.filter(Boolean).length;
+    document.getElementById('score-display').innerHTML = score + ' <span>/ 6</span>';
+
+    var lvl, desc;
+    if (score <= 1) {
+      lvl  = 'A0 – Beginner';
+      desc = 'Just getting started — and that\'s perfect.';
+    } else if (score <= 3) {
+      lvl  = 'A1 / A2 – Elementary';
+      desc = 'You have the basics. Time to build confidence.';
+    } else if (score <= 5) {
+      lvl  = 'B1 / B2 – Intermediate';
+      desc = 'Good foundation. Let\'s unlock real fluency.';
+    } else {
+      lvl  = 'C1 – Advanced';
+      desc = 'Impressive. Ready for the next challenge.';
+    }
+
+    document.getElementById('level-badge').textContent = lvl;
+    document.getElementById('level-desc').textContent  = desc;
+    document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById('step-result').classList.add('active');
+    document.getElementById('progress').style.width = '100%';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function submitContact() {
+    var email = document.getElementById('field-email').value.trim();
+    var phone = document.getElementById('field-phone').value.trim();
+    if (!email && !phone) {
+      document.getElementById('field-email').focus();
+      return;
+    }
+    document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('success-box').style.display  = 'block';
+  }
+</script>
+
+</body>
+</html>
